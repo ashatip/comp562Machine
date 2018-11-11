@@ -6,7 +6,7 @@ from sklearn.preprocessing import scale
 import numpy as np
 
 print('opening file...')
-with open('shapemap1000000.txt',"r") as f:
+with open('data/shapemap1000000.txt',"r") as f:
     # all_data=[x.split() for x in f.readlines()]
     all_data=[next(f).split() for i in range(12000)]
 
@@ -105,9 +105,11 @@ plt.show()
 
 error = test_predictions - test_labels
 plt.hist(error, bins = 50)
+plt.legend(['X','Y','Z'])
 plt.xlabel("Prediction Error []")
 plt.ylabel("Count")
 plt.show()
 
+# print the first few predictions and labels
 for x in range(0, 50):
     print(test_labels[x], test_predictions[x], sep=" : ")
