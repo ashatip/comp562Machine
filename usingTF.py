@@ -20,12 +20,12 @@ print('finished opening')
 lastcoord = coords[:,-3:] # get last three columns
 lastcoordX = lastcoord[:,:1]
 
-length = len(coords)
-train_data = myinputs[:length//5*4] # 80%
-train_labels = lastcoordX[:length//5*4] # 80%
+def split_data(data, perc): # perc is the percentage value of where the data will split. ie: .8 or .2
+  splitind = int(len(data)*perc)
+  return data[:splitind], data[splitind:]
 
-test_data = myinputs[length//5*4:] # last 20%
-test_labels = lastcoordX[length//5*4:] # last 20%
+train_data, test_data = split_data(myinputs, 0.8)
+train_label_X, test_label_X = split_data(lastcoordX, 0.8)
 
 print("Training set: {}".format(train_data.shape))  # xxx examples, 6 features
 print("Testing set:  {}".format(test_data.shape))   # xxx examples, 6 features
