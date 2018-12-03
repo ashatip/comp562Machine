@@ -1,29 +1,44 @@
 import csv
 
 import tensorflow as tf
+import sys
 from tensorflow import keras
 from sklearn.preprocessing import scale
 import numpy as np
 
 print('opening file...')
-with open('data/shapemap1000000.txt',"r") as f:
-    # all_data=[x.split() for x in f.readlines()]
-    all_data=[next(f).split() for i in range(12000)]
+with open('shapemap1000000.txt',"r") as f:
+    myrange = 3000000
+    all_data=[next(f).split() for i in range(myrange)]
 
-    myinputs = np.array([[float(i) for i in x] for x in all_data[::3]], dtype=float)
+    # Creating input matrix
+    myinputs = np.zeros((int(myrange/3)*20, 7))
+    xcounter = 0
+    for x in all_data[::3]:
+        for y in range(0, 20):
+            myinputs[xcounter][0] = y
+            myinputs[xcounter][1:7] = [float(i) for i in x]
+            xcounter += 1
     myinputs = scale(myinputs, axis=0)
 
-    coords = np.array([[float(i) for i in x] for x in all_data[2::3]], dtype=float)
+    coords = np.zeros((int(myrange/3)*20, 3))
+    counter = 0
+    for x in all_data[2::3]:
+        for y in range(0, 20):
+            coords[counter] = x[y * 3:(y + 1) * 3]
+            counter += 1
     coords = scale(coords, axis=0)
 print('finished opening')
 
-lastcoord = coords[:,-3:] # get last three columns
-lastcoordX = lastcoord[:,:1]
+lastcoord = coords#[:,-3:] # get last three columns
+
 
 length = len(coords)
+
 train_data = myinputs[:length//5*4] # 80%
-print(train_data[0])
 train_labels = lastcoord[:length//5*4] # 80%
+#print(len(train_data))
+#print(len(train_labels))
 
 test_data = myinputs[length//5*4:] # last 20%
 test_labels = lastcoord[length//5*4:] # last 20%
@@ -105,11 +120,9 @@ plt.show()
 
 error = test_predictions - test_labels
 plt.hist(error, bins = 50)
-plt.legend(['X','Y','Z'])
 plt.xlabel("Prediction Error []")
 plt.ylabel("Count")
 plt.show()
 
-# print the first few predictions and labels
-for x in range(0, 50):
-    print(test_labels[x], test_predictions[x], sep=" : ")
+#for x in range(0, 50):
+#    print(test_labels[x], test_predictions[x], sep=" : ")
