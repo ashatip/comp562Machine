@@ -8,7 +8,7 @@
 2 hidden layers - 64 nodes each - ReLU\
 loss - MSE\
 optimizer - tf.train.RMSPropOptimizer(0.001)\
-split - 8/2\
+split - 8/2
 
 ## 20pointnnTF.py
 7 inputs - t, 3 rotational, 3 translational\
@@ -16,7 +16,7 @@ split - 8/2\
 2 hidden layers - 64 nodes each - ReLU\
 loss - MSE\
 optimizer - tf.train.RMSPropOptimizer(0.001)\
-split - 8/2\
+split - 8/2
 
 ## usingTF_triple.py
 unfinished
