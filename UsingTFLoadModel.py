@@ -21,7 +21,7 @@ with open('shapemap1000000.txt',"r") as f:
             myinputs[xcounter][0] = y
             myinputs[xcounter][1:7] = [float(i) for i in x]
             xcounter += 1
-    myinputs = scale(myinputs, axis=0)
+    #myinputs = scale(myinputs, axis=0)
 
     coords = np.zeros((int(myrange/3)*20, 3))
     counter = 0
@@ -29,7 +29,7 @@ with open('shapemap1000000.txt',"r") as f:
         for y in range(0, 20):
             coords[counter] = x[y * 3:(y + 1) * 3]
             counter += 1
-    coords = scale(coords, axis=0)
+    #coords = scale(coords, axis=0)
 print('finished opening')
 
 lastcoord = coords#[:,-3:] # get last three columns
@@ -54,7 +54,7 @@ class PrintDot(keras.callbacks.Callback):
         print('.', end='')
 
 
-model = keras.models.load_model('model' + str(datapoints) + '.h5')
+model = keras.models.load_model('model' + str(datapoints) + 'noscaling.h5')
 optimizer = tf.train.RMSPropOptimizer(0.001)
 model.compile(loss='mse',
                   optimizer=optimizer,
