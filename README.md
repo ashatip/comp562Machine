@@ -4,6 +4,8 @@ COMP562 (machine learning) UNC 2018 Fall final project.
 
 Team Member: Paul Song, Christopher Alan Hemmer, Eric Xin, Ahmet Hatip
 
+Neural network project to predict the location of a medical Robot based on 6 motors
+
 Table of contents
 =================
 
